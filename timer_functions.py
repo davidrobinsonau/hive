@@ -13,26 +13,38 @@ class track_timer:
         self.end_time = time.time()
         self.time_elapsed = 0.0
         self.time_elapsed_string = "0.000"
+        # Boolean to track if the timer is running
+        self.running = False
 
     def start(self):
         self.start_time = time.time()
+        self.running = True
+
+    def is_running(self):
+        return self.running
 
     def stop(self):
         self.end_time = time.time()
         self.time_elapsed = self.end_time - self.start_time
         self.time_elapsed_string = "{:.3f}".format(self.time_elapsed)
+        self.running = False
         return self.time_elapsed_string
 
     def get_time(self):
-        self.time_elapsed = time.time() - self.start_time
-        self.time_elapsed_string = "{:.3f}".format(self.time_elapsed)
-        return self.time_elapsed_string
+        # Only return the time if the timer is running
+        if self.start_time == self.end_time:
+            self.time_elapsed = time.time() - self.start_time
+            self.time_elapsed_string = "{:.3f}".format(self.time_elapsed)
+            return self.time_elapsed_string
+        else:
+            return self.time_elapsed_string
 
     def reset(self):
         self.start_time = time.time()
         self.end_time = time.time()
         self.time_elapsed = 0.0
         self.time_elapsed_string = "0.000"
+        self.running = False
 
 
 if __name__ == "__main__":
@@ -46,7 +58,7 @@ if __name__ == "__main__":
     timer.start()
     print("Getting time")
     print(timer.get_time())
-    print("Waitingfor 5 seconds")
+    print("Waiting for 5 seconds")
     time.sleep(5)
     print("Stopping timer")
     print(timer.stop())

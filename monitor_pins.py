@@ -62,15 +62,30 @@ def Main():
         width = pygame.display.Info().current_w
         height = pygame.display.Info().current_h
         screen = pygame.display.set_mode((width, height), pygame.FULLSCREEN)
+        display_active = True
 
         while True:
-            # Get the string from both timers
-            track_1_time = track_timer_1.get_time()
-            track_2_time = track_timer_2.get_time()
-            screen_message = (
-                "Track 1         Track 2\n" + track_1_time + "   " + track_2_time
-            )
-            ShowClock(screen, width, height, screen_message)
+            # Check if the timer is running
+            if track_timer_1.is_running() or track_timer_2.is_running():
+                # Check if display is active
+                if display_active == False:
+                    pygame.display.set_mode((width, height), pygame.FULLSCREEN)
+                    display_active = True
+                # Get the string from both timers
+                track_1_time = track_timer_1.get_time()
+                track_2_time = track_timer_2.get_time()
+                screen_message = (
+                    "Track 1         Track 2\n" + track_1_time + "   " + track_2_time
+                )
+                ShowClock(screen, width, height, screen_message)
+
+            # If the track timers have not run for 10 minutes, hide pygame window
+            if display_active == True and (
+                track_timer_1.get_time_elapsed_from_last_start() > 600
+                or track_timer_2.get_time_elapsed_from_last_start() > 600
+            ):
+                pygame.display.set_mode((1, 1))
+                display_active = False
 
             for event in pygame.event.get():
                 if event.type == QUIT:
@@ -83,7 +98,7 @@ def Main():
                     GPIO.cleanup()
                     sys.exit()
             # Sleep a little while to give the CPU a break
-            time.sleep(0.1)
+            time.sleep(0.2)
 
 
 def button_callback(channel):
@@ -95,50 +110,32 @@ def button_callback(channel):
 
     # Check if the car was seen on PIN 11 Track 1
     if channel == 11:
-        # Check if the car is already running
-        if track_timer_1.start_time == 0:
-            # Car is not running, start the timer
-            track_timer_1.start()
-            print("Track 1 Started")
-        else:
-            # Car is already running, reset the timer
-            # Reset the timer
-            track_timer_1.reset()
-            print("Track 1 Reset")
-            track_timer_1.start()
+        # Reset the timer
+        track_timer_1.reset()
+        print("Track 1 Reset and starting")
+        track_timer_1.start()
     # Check if the car was seen on PIN 15 Track 2
     elif channel == 15:
-        # Check if the car is already running
-        if track_timer_2.start_time == 0:
-            # Car is not running, start the timer
-            track_timer_2.start()
-            print("Track 2 Started")
-        else:
-            # Car is already running, reset the timer
-            # Reset the timer
-            track_timer_2.reset()
-            print("Track 2 Reset")
-            track_timer_2.start()
+        # Reset the timer
+        track_timer_2.reset()
+        print("Track 2 Reset and starting")
+        track_timer_2.start()
     # Check if the car was seen on PIN 13 Track 1
     elif channel == 13:
         # Check if the car is already running
         if track_timer_1.start_time != 0:
             # Car is running, stop the timer
             track_timer_1.stop()
-            print("Track 1 Stopped")
             print("Track 1 Time:", track_timer_1.time_elapsed_string)
-            # Reset the timer
-            track_timer_1.reset()
+            # Reset the timer - We don't want this as the screen will clear
+            # track_timer_1.reset()
     # Check if the car was seen on PIN 7 Track 2
     elif channel == 7:
         # Check if the car is already running
         if track_timer_2.start_time != 0:
             # Car is running, stop the timer
             track_timer_2.stop()
-            print("Track 2 Stopped")
             print("Track 2 Time:", track_timer_2.time_elapsed_string)
-            # Reset the timer
-            track_timer_2.reset()
 
 
 # Set pins to be INPUT and down
