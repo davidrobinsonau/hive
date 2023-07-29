@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 import RPi.GPIO as GPIO  # Import the Raspberry Pi GPIO Library
 import timer_functions as timer  # Import the timer_functions.py file
+import text_display as textdisplay  # Import the text_display.py file
 import os
 import pygame, sys
 from pygame.locals import *
@@ -47,8 +48,8 @@ def ShowClock(screen, width, height, thisTime):
     screen.fill((0, 0, 0))
 
     txtTim = Render(thisTime, (255, 255, 255), 728)
-    h = (height - txtTim.get_height()) // 4
-    w = (width - txtTim.get_width()) // 4
+    h = (height - txtTim.get_height()) // 2
+    w = (width - txtTim.get_width()) // 2
     screen.blit(txtTim, (w, h))
 
     pygame.display.update()
@@ -75,9 +76,7 @@ def Main():
                 # Get the string from both timers
                 track_1_time = track_timer_1.get_time()
                 track_2_time = track_timer_2.get_time()
-                screen_message = (
-                    "Track 1         Track 2\n" + track_1_time + "   " + track_2_time
-                )
+                screen_message = track_1_time + "   " + track_2_time
                 ShowClock(screen, width, height, screen_message)
 
             # If the track timers have not run for 10 minutes, hide pygame window
