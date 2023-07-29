@@ -64,7 +64,7 @@ def Main():
         height = pygame.display.Info().current_h
         screen = pygame.display.set_mode((width, height), pygame.FULLSCREEN)
         display_active = True
-        ShowClock(screen, width, height, "On your Marks,\nGet Set,Go!")
+        ShowClock(screen, width, height, "On your Marks")
 
         while True:
             # Check if the timer is running
