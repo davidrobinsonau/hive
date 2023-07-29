@@ -47,8 +47,8 @@ def ShowClock(screen, width, height, thisTime):
     screen.fill((0, 0, 0))
 
     txtTim = Render(thisTime, (255, 255, 255), 728)
-    h = (height - txtTim.get_height()) // 2
-    w = (width - txtTim.get_width()) // 2
+    h = (height - txtTim.get_height()) // 4
+    w = (width - txtTim.get_width()) // 4
     screen.blit(txtTim, (w, h))
 
     pygame.display.update()
@@ -63,6 +63,7 @@ def Main():
         height = pygame.display.Info().current_h
         screen = pygame.display.set_mode((width, height), pygame.FULLSCREEN)
         display_active = True
+        ShowClock(screen, width, height, "On your Marks,\nGet Set,Go!")
 
         while True:
             # Check if the timer is running
