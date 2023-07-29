@@ -39,6 +39,9 @@ class track_timer:
         else:
             return self.time_elapsed_string
 
+    def get_time_elapsed_from_last_start(self):  # get_time_elapsed_from_last_start
+        return time.time() - self.start_time
+
     def reset(self):
         self.start_time = time.time()
         self.end_time = time.time()
