@@ -82,7 +82,7 @@ def Main():
             # If the track timers have not run for 10 minutes, hide pygame window
             if display_active == True and (
                 track_timer_1.get_time_elapsed_from_last_start() > 60
-                or track_timer_2.get_time_elapsed_from_last_start() > 60
+                and track_timer_2.get_time_elapsed_from_last_start() > 60
             ):
                 pygame.display.set_mode((1, 1))
                 display_active = False
