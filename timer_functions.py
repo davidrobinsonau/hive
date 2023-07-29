@@ -32,7 +32,7 @@ class track_timer:
 
     def get_time(self):
         # Only return the time if the timer is running
-        if self.start_time == self.end_time:
+        if self.running == True:
             self.time_elapsed = time.time() - self.start_time
             self.time_elapsed_string = "{:.3f}".format(self.time_elapsed)
             return self.time_elapsed_string
