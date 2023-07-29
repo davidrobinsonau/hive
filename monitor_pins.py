@@ -98,7 +98,7 @@ def Main():
                     GPIO.cleanup()
                     sys.exit()
             # Sleep a little while to give the CPU a break
-            time.sleep(0.2)
+            time.sleep(0.1)
 
 
 def button_callback(channel):
