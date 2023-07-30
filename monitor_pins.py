@@ -40,6 +40,7 @@ def FindDisplayDriver():
 
 
 def ShowClock(screen, width, height, thisTime):
+    # Function to display the time on the screen
     def Render(s, rgb, size):
         fnt = pygame.font.SysFont("Any", size * height // 1080)
         txt = fnt.render(s, True, rgb)
@@ -48,7 +49,12 @@ def ShowClock(screen, width, height, thisTime):
     screen.fill((0, 0, 0))
 
     txtTim = Render(thisTime, (255, 255, 255), 728)
+    # Center the text on the screen
+    # This line of code calculates the vertical position of a text object on a surface. It subtracts the height of the text object
+    # from the height of the surface, then divides the result by 2 to center the text vertically.
+    # The result is stored in the variable h.
     h = (height - txtTim.get_height()) // 2
+    # //: Divides the number on its left by the number on its right, rounds down the answer, and returns a whole number.
     w = (width - txtTim.get_width()) // 2
     screen.blit(txtTim, (w, h))
 
