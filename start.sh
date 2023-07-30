@@ -2,12 +2,14 @@
 # This script will start the pygame timer application. 
 # On 2023-07-30 I found the pygame app crashed due to X display error.
 # So now I've put it in a loop to restart the application when it fails.
+cd /home/hive/Scripts
 
 while true
 do
     ./monitor_pins.py
-    # Sleep 5 seconds to give time for everything to shutdown and clean up
-    sleep 5
+    # Sleep 30 seconds to give time for everything to shutdown and clean up
+    # AND to give time for a normal exit by operator to take control before restart.
+    sleep 30
 done
 
 # I'll still need to check the terminal displau to see if it's running or how many times it crashed.
