@@ -66,7 +66,10 @@ def ShowClock(screen, width, height, thisTime):
 
     # Render the text for the lowest score
     txtLowest = Render(
-        "Lowest " + str(lowest_score[0]) + "   " + str(lowest_score[1]),
+        "Best "
+        + "{:.3f}".format(lowest_score[0])
+        + "   "
+        + "{:.3f}".format(lowest_score[1]),
         (255, 255, 255),
         400,
     )
@@ -108,7 +111,7 @@ def Main():
                 pygame.display.set_mode((1, 1))
                 display_active = False
                 # Reset low scores back to 0.0
-                lowest_score = [10.0, 10.0]
+                lowest_score = [10.001, 10.001]
 
             for event in pygame.event.get():
                 if event.type == QUIT:
