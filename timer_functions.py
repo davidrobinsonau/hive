@@ -12,7 +12,7 @@ class track_timer:
         self.start_time = time.time()
         self.end_time = time.time()
         self.time_elapsed = 0.0
-        self.time_elapsed_string = "0.000"
+        self.time_elapsed_string = "00.000"
         # Boolean to track if the timer is running
         self.running = False
 

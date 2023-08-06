@@ -67,9 +67,9 @@ def ShowClock(screen, width, height, thisTime):
     # Render the text for the lowest score
     txtLowest = Render(
         " Best "
-        + "{:.3f}".format(lowest_score[0])
+        + "{:.3f}".format(lowest_score[0]).zfill(6)
         + "   "
-        + "{:.3f}".format(lowest_score[1]),
+        + "{:.3f}".format(lowest_score[1]).zfill(6),
         (255, 255, 255),
         400,
     )
