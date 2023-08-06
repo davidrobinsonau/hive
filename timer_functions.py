@@ -23,6 +23,10 @@ class track_timer:
     def is_running(self):
         return self.running
 
+    # This function will return the time elapsed as number of seconds. Only used after timer has stopped.
+    def get_time_elapsed(self):
+        return self.time_elapsed
+
     def stop(self):
         self.end_time = time.time()
         self.time_elapsed = self.end_time - self.start_time

@@ -26,6 +26,9 @@ pi_pins = [7, 11, 13, 15]  # This is the 4 pins we are monitoring
 track_timer_1 = timer.track_timer()  # Track 1
 track_timer_2 = timer.track_timer()  # Track 2
 
+# Store lowest score in an array for each track
+lowest_score = [10.0, 10.0]
+
 
 def FindDisplayDriver():
     for driver in ["fbcon", "directfb", "svgalib"]:
@@ -56,7 +59,19 @@ def ShowClock(screen, width, height, thisTime):
     h = (height - txtTim.get_height()) // 2
     # //: Divides the number on its left by the number on its right, rounds down the answer, and returns a whole number.
     w = (width - txtTim.get_width()) // 2
+    # The code screen.blit(txtTim, (w, h)) is used to blit or display an image or a text on the screen at the specified coordinates (w, h).
+    # In this specific case, txtTim is likely a text that needs to be displayed on the screen, and (w, h) represents the x and y position where the text will be placed.
+    # By calling screen.blit(txtTim, (w, h)), the text stored in txtTim will be rendered onto the screen at the specified position.
     screen.blit(txtTim, (w, h))
+
+    # Render the text for the lowest score
+    txtLowest = Render(
+        "Lowest " + str(lowest_score[0]) + "   " + str(lowest_score[1]),
+        (255, 255, 255),
+        400,
+    )
+    # Put the lowest score at the top of the screen
+    screen.blit(txtLowest, (w, 0))
 
     pygame.display.update()
 
@@ -92,6 +107,8 @@ def Main():
             ):
                 pygame.display.set_mode((1, 1))
                 display_active = False
+                # Reset low scores back to 0.0
+                lowest_score = [10.0, 10.0]
 
             for event in pygame.event.get():
                 if event.type == QUIT:
@@ -135,6 +152,13 @@ def button_callback(channel):
             print("Track 1 Time:", track_timer_1.time_elapsed_string)
             # Reset the timer - We don't want this as the screen will clear
             # track_timer_1.reset()
+            # If the time is lower than the lowest score, play the music
+            if track_timer_1.get_time_elapsed() < lowest_score[0]:
+                print("New low score!")
+                lowest_score[0] = track_timer_1.get_time_elapsed()
+                # Play the music
+                # pygame.mixer.music.load(music[pi_pin_index])
+                # pygame.mixer.music.play()
     # Check if the car was seen on PIN 7 Track 2
     elif channel == 7:
         # Check if the car is already running
@@ -142,6 +166,10 @@ def button_callback(channel):
             # Car is running, stop the timer
             track_timer_2.stop()
             print("Track 2 Time:", track_timer_2.time_elapsed_string)
+            # If the time is lower than the lowest score, play the music
+            if track_timer_2.get_time_elapsed() < lowest_score[1]:
+                print("New low score!")
+                lowest_score[1] = track_timer_2.get_time_elapsed()
 
 
 # Set pins to be INPUT and down
