@@ -111,7 +111,12 @@ def Main():
                 pygame.display.set_mode((1, 1))
                 display_active = False
                 # Reset low scores back to 0.0
-                lowest_score = [10.001, 10.001]
+                lowest_score = [10.000, 10.000]
+                # If the timer is still running after 600 seconds, stop it
+                if track_timer_1.is_running():
+                    track_timer_1.stop()
+                if track_timer_2.is_running():
+                    track_timer_2.stop()
 
             for event in pygame.event.get():
                 if event.type == QUIT:
