@@ -66,7 +66,7 @@ def ShowClock(screen, width, height, thisTime):
 
     # Render the text for the lowest score
     txtLowest = Render(
-        "Best "
+        " Best "
         + "{:.3f}".format(lowest_score[0])
         + "   "
         + "{:.3f}".format(lowest_score[1]),
@@ -97,11 +97,11 @@ def Main():
                 if display_active == False:
                     pygame.display.set_mode((width, height), pygame.FULLSCREEN)
                     display_active = True
-                # Get the string from both timers
-                track_1_time = track_timer_1.get_time()
-                track_2_time = track_timer_2.get_time()
-                screen_message = track_1_time + "   " + track_2_time
-                ShowClock(screen, width, height, screen_message)
+            # Get the string from both timers
+            track_1_time = track_timer_1.get_time()
+            track_2_time = track_timer_2.get_time()
+            screen_message = track_1_time + "   " + track_2_time
+            ShowClock(screen, width, height, screen_message)
 
             # If the track timers have not run for 10 minutes, hide pygame window
             if display_active == True and (
