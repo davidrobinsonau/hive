@@ -30,7 +30,7 @@ class track_timer:
     def stop(self):
         self.end_time = time.time()
         self.time_elapsed = self.end_time - self.start_time
-        self.time_elapsed_string = "{:.3f}".format(self.time_elapsed)
+        self.time_elapsed_string = "{:.3f}".format(self.time_elapsed).zfill(6)
         self.running = False
         return self.time_elapsed_string
 
@@ -38,7 +38,11 @@ class track_timer:
         # Only return the time if the timer is running
         if self.running == True:
             self.time_elapsed = time.time() - self.start_time
-            self.time_elapsed_string = "{:.3f}".format(self.time_elapsed)
+            # If time_elapsed is greater then 99.999, set it to 99.999
+            if self.time_elapsed > 99.999:
+                self.time_elapsed = 99.999
+            # format the string to 00.000
+            self.time_elapsed_string = "{:.3f}".format(self.time_elapsed).zfill(6)
             return self.time_elapsed_string
         else:
             return self.time_elapsed_string
