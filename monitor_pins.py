@@ -29,6 +29,10 @@ track_timer_2 = timer.track_timer()  # Track 2
 # Store lowest score in an array for each track
 lowest_score = [10.0, 10.0]
 
+# Load up WAV file
+pygame.mixer.init()
+play_sound = pygame.mixer.Sound("/home/hive/Scripts/CrowdCheer.wav")
+play_sound.play()
 
 def FindDisplayDriver():
     for driver in ["fbcon", "directfb", "svgalib"]:
@@ -165,6 +169,7 @@ def button_callback(channel):
                 print("New low score!")
                 lowest_score[0] = track_timer_1.get_time_elapsed()
                 # Play the music
+                play_sound.play()
                 # pygame.mixer.music.load(music[pi_pin_index])
                 # pygame.mixer.music.play()
     # Check if the car was seen on PIN 7 Track 2
@@ -178,6 +183,7 @@ def button_callback(channel):
             if track_timer_2.get_time_elapsed() < lowest_score[1]:
                 print("New low score!")
                 lowest_score[1] = track_timer_2.get_time_elapsed()
+                play_sound.play()
 
 
 # Set pins to be INPUT and down
