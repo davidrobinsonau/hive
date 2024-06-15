@@ -8,9 +8,9 @@ while true
 do
     ./monitor_pins.py
     echo "Script stopped! waiting 30 seconds then trying again"
-    # Sleep 30 seconds to give time for everything to shutdown and clean up
+    # Sleep 20 seconds to give time for everything to shutdown and clean up
     # AND to give time for a normal exit by operator to take control before restart.
-    sleep 30
+    sleep 20
 done
 
 # I'll still need to check the terminal displau to see if it's running or how many times it crashed.

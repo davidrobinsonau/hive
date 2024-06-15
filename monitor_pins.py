@@ -33,6 +33,7 @@ lowest_score = [10.0, 10.0]
 pygame.mixer.init()
 play_sound = pygame.mixer.Sound("/home/hive/Scripts/CrowdCheer.wav")
 play_sound.play()
+start_sound = pygame.mixer.Sound("/home/hive/Scripts/racing-car-test.wav")
 
 def FindDisplayDriver():
     for driver in ["fbcon", "directfb", "svgalib"]:
@@ -149,18 +150,21 @@ def button_callback(channel):
         track_timer_1.reset()
         print("Track 1 Reset and starting")
         track_timer_1.start()
+        start_sound.play()
     # Check if the car was seen on PIN 15 Track 2
     elif channel == 15:
         # Reset the timer
         track_timer_2.reset()
         print("Track 2 Reset and starting")
         track_timer_2.start()
+        start_sound.play()
     # Check if the car was seen on PIN 13 Track 1
     elif channel == 13:
         # Check if the car is already running
         if track_timer_1.start_time != 0:
             # Car is running, stop the timer
             track_timer_1.stop()
+            start_sound.stop()
             print("Track 1 Time:", track_timer_1.time_elapsed_string)
             # Reset the timer - We don't want this as the screen will clear
             # track_timer_1.reset()
@@ -178,6 +182,7 @@ def button_callback(channel):
         if track_timer_2.start_time != 0:
             # Car is running, stop the timer
             track_timer_2.stop()
+            start_sound.stop()
             print("Track 2 Time:", track_timer_2.time_elapsed_string)
             # If the time is lower than the lowest score, play the music
             if track_timer_2.get_time_elapsed() < lowest_score[1]:
