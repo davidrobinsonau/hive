@@ -91,7 +91,7 @@ def ShowClock(screen, width, height, thisTime):
         txtDebug = Render(
             "PIN 11: " + str(GPIO.input(11)) + "   PIN 13: " + str(GPIO.input(13)),
             (255, 255, 255),
-            400,
+            200,
         )
         # Put the debug data at the bottom of the screen
         screen.blit(txtDebug, (w, height - txtDebug.get_height()))
@@ -99,7 +99,7 @@ def ShowClock(screen, width, height, thisTime):
         txtDebug2 = Render(
             "PIN 15: " + str(GPIO.input(15)) + "   PIN 7: " + str(GPIO.input(7)),
             (255, 255, 255),
-            400,
+            200,
         )
         # Put the debug data at the bottom of the screen
         screen.blit(txtDebug2, (w, height - txtDebug.get_height() * 2))
@@ -198,7 +198,7 @@ def button_callback(channel):
     # Check if the car was seen on PIN 13 Track 1
     elif channel == 13:
         # Check if the car is already running
-        if track_timer_1.start_time != 0:
+        if track_timer_1.running:
             # Car is running, stop the timer
             track_timer_1.stop()
             start_sound.stop()
@@ -216,7 +216,7 @@ def button_callback(channel):
     # Check if the car was seen on PIN 7 Track 2
     elif channel == 7:
         # Check if the car is already running
-        if track_timer_2.start_time != 0:
+        if track_timer_2.running:
             # Car is running, stop the timer
             track_timer_2.stop()
             start_sound.stop()
