@@ -242,7 +242,7 @@ def button_callback(channel):
 for pi_pin in pi_pins:
     GPIO.setup(pi_pin, GPIO.IN, pull_up_down=GPIO.PUD_UP)
     # Setup pin event monitoring
-    GPIO.add_event_detect(pi_pin, GPIO.PUD_DOWN, button_callback, bouncetime=300)
+    GPIO.add_event_detect(pi_pin, GPIO.FALLING, button_callback, bouncetime=300)
 
 
 if __name__ == "__main__":
