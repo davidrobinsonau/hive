@@ -97,7 +97,7 @@ def ShowClock(screen, width, height, thisTime):
         screen.blit(txtDebug, (w, height - txtDebug.get_height()))
         # And PIN 15 and 7
         txtDebug2 = Render(
-            "PIN 15: " + str(GPIO.input(15)) + "   PIN 7: " + str(GPIO.input(7)),
+            "PIN 15: " + str(GPIO.input(15)) + "   PIN 37: " + str(GPIO.input(37)),
             (255, 255, 255),
             200,
         )
