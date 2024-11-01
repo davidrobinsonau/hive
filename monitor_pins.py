@@ -109,6 +109,7 @@ def ShowClock(screen, width, height, thisTime):
 
 # The main code to display the track timers on the screen
 def Main():
+    global lowest_score, track_timer_1, track_timer_2, debugOn, play_sound, start_sound, pi_pins
 
     if not FindDisplayDriver():
         print("Failed to initialise display driver")
