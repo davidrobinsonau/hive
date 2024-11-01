@@ -184,6 +184,7 @@ def Main():
 
 
 def button_callback(channel):
+    global track_timer_1, track_timer_2, lowest_score, play_sound, start_sound, pi_pins
     # Print out the Pi PIN that detected the 3.3V
     # print(channel)
     # Print out the location in the list. Used for music
