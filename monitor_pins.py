@@ -11,7 +11,7 @@ import time
 GPIO.setwarnings(False)
 GPIO.setmode(GPIO.BOARD)
 
-pi_pins = [37, 11, 13, 15]  # This is the 4 pins we are monitoring
+pi_pins = [31, 11, 13, 15]  # This is the 4 pins we are monitoring
 
 # Track 1
 # PIN 11 - Start
@@ -19,7 +19,7 @@ pi_pins = [37, 11, 13, 15]  # This is the 4 pins we are monitoring
 
 # Track 2
 # PIN 15 - Start
-# PIN 7 - Stop
+# PIN 31 - Stop
 
 
 # Create objects to track the time of each track
@@ -97,7 +97,7 @@ def ShowClock(screen, width, height, thisTime):
         screen.blit(txtDebug, (w, height - txtDebug.get_height()))
         # And PIN 15 and 7
         txtDebug2 = Render(
-            "PIN 15: " + str(GPIO.input(15)) + "   PIN 37: " + str(GPIO.input(37)),
+            "PIN 15: " + str(GPIO.input(15)) + "   PIN 31: " + str(GPIO.input(31)),
             (255, 255, 255),
             200,
         )
@@ -223,8 +223,8 @@ def button_callback(channel):
                 play_sound.play()
                 # pygame.mixer.music.load(music[pi_pin_index])
                 # pygame.mixer.music.play()
-    # Check if the car was seen on PIN 7 Track 2
-    elif channel == 37:
+    # Check if the car was seen on PIN 31 Track 2
+    elif channel == 31:
         # Check if the car is already running
         if track_timer_2.running:
             # Car is running, stop the timer
