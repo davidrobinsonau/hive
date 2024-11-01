@@ -140,13 +140,19 @@ def Main():
             ):
                 pygame.display.set_mode((1, 1))
                 display_active = False
-                # Reset low scores back to 0.0
+                # Reset low scores back to 10.0
                 lowest_score = [10.000, 10.000]
                 # If the timer is still running after 600 seconds, stop it
                 if track_timer_1.is_running():
                     track_timer_1.stop()
                 if track_timer_2.is_running():
                     track_timer_2.stop()
+
+            # If lowest scrore is 0.0, reset back to 10.0 seconds. Weird glitch that score is 0.0 sometimes. then noone can beat it.
+            if lowest_score[0] == 0.0:
+                lowest_score[0] = 10.0
+            if lowest_score[1] == 0.0:
+                lowest_score[1] = 10.0
 
             for event in pygame.event.get():
                 if event.type == QUIT:
@@ -169,6 +175,9 @@ def Main():
                             debugOn = False
                         else:
                             debugOn = True
+                    elif event.key == pygame.K_r:
+                        # Reset the lowest score
+                        lowest_score = [10.0, 10.0]
 
             # Sleep a little while to give the CPU a break
             time.sleep(0.1)
