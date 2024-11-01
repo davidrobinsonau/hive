@@ -11,7 +11,7 @@ import time
 GPIO.setwarnings(False)
 GPIO.setmode(GPIO.BOARD)
 
-pi_pins = [7, 11, 13, 15]  # This is the 4 pins we are monitoring
+pi_pins = [37, 11, 13, 15]  # This is the 4 pins we are monitoring
 
 # Track 1
 # PIN 11 - Start
@@ -224,7 +224,7 @@ def button_callback(channel):
                 # pygame.mixer.music.load(music[pi_pin_index])
                 # pygame.mixer.music.play()
     # Check if the car was seen on PIN 7 Track 2
-    elif channel == 7:
+    elif channel == 37:
         # Check if the car is already running
         if track_timer_2.running:
             # Car is running, stop the timer
