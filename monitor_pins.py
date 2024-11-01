@@ -29,11 +29,15 @@ track_timer_2 = timer.track_timer()  # Track 2
 # Store lowest score in an array for each track
 lowest_score = [10.0, 10.0]
 
+# Debug to display sensor data or state on the screen when on. Set to False to disable
+debugOn = False
+
 # Load up WAV file
 pygame.mixer.init()
 play_sound = pygame.mixer.Sound("/home/hive/Scripts/CrowdCheer.wav")
 play_sound.play()
 start_sound = pygame.mixer.Sound("/home/hive/Scripts/racing-car-test.wav")
+
 
 def FindDisplayDriver():
     for driver in ["fbcon", "directfb", "svgalib"]:
@@ -81,11 +85,31 @@ def ShowClock(screen, width, height, thisTime):
     # Put the lowest score at the top of the screen
     screen.blit(txtLowest, (w, 0))
 
+    # If debug is on, display the sensor data
+    if debugOn:
+        # Render the text for the sensor data
+        txtDebug = Render(
+            "PIN 11: " + str(GPIO.input(11)) + "   PIN 13: " + str(GPIO.input(13)),
+            (255, 255, 255),
+            400,
+        )
+        # Put the debug data at the bottom of the screen
+        screen.blit(txtDebug, (w, height - txtDebug.get_height()))
+        # And PIN 15 and 7
+        txtDebug2 = Render(
+            "PIN 15: " + str(GPIO.input(15)) + "   PIN 7: " + str(GPIO.input(7)),
+            (255, 255, 255),
+            400,
+        )
+        # Put the debug data at the bottom of the screen
+        screen.blit(txtDebug2, (w, height - txtDebug.get_height() * 2))
+
     pygame.display.update()
 
 
 # The main code to display the track timers on the screen
 def Main():
+
     if not FindDisplayDriver():
         print("Failed to initialise display driver")
     else:
@@ -128,11 +152,23 @@ def Main():
                     pygame.quit()
                     GPIO.cleanup()
                     sys.exit()
-                elif event.type == MOUSEBUTTONDOWN or event.type == KEYDOWN:
+                elif event.type == MOUSEBUTTONDOWN:
                     kz = 0
                     pygame.quit()
                     GPIO.cleanup()
                     sys.exit()
+                elif event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_ESCAPE:
+                        pygame.quit()
+                        GPIO.cleanup()
+                        sys.exit()
+                    elif event.key == pygame.K_d:
+                        # Toggle debug mode
+                        if debugOn == True:
+                            debugOn = False
+                        else:
+                            debugOn = True
+
             # Sleep a little while to give the CPU a break
             time.sleep(0.1)
 
